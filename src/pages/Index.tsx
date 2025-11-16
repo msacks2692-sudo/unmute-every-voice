@@ -7,6 +7,7 @@ import Barriers from "@/components/Barriers";
 import Impact from "@/components/Impact";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import { AccessibilityButton } from "@/components/AccessibilityButton";
 
 const Index = () => {
   return (
@@ -20,6 +21,7 @@ const Index = () => {
       <Impact />
       <CTA />
       <Footer />
+      <AccessibilityButton />
     </main>
   );
 };
