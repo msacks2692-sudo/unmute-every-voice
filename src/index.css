@@ -88,4 +88,13 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+
+  .cracked-texture {
+    background-image: 
+      repeating-linear-gradient(90deg, transparent, transparent 2px, hsl(var(--foreground) / 0.03) 2px, hsl(var(--foreground) / 0.03) 4px),
+      repeating-linear-gradient(0deg, transparent, transparent 2px, hsl(var(--foreground) / 0.03) 2px, hsl(var(--foreground) / 0.03) 4px),
+      repeating-linear-gradient(45deg, transparent, transparent 10px, hsl(var(--foreground) / 0.02) 10px, hsl(var(--foreground) / 0.02) 11px),
+      repeating-linear-gradient(-45deg, transparent, transparent 10px, hsl(var(--foreground) / 0.02) 10px, hsl(var(--foreground) / 0.02) 11px);
+    background-size: 100% 100%, 100% 100%, 50px 50px, 50px 50px;
+  }
 }

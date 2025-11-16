@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Mic } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
+import DustParticles from "./DustParticles";
 
 const Hero = () => {
   return (
@@ -14,6 +15,9 @@ const Hero = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/80 to-background" />
       </div>
+
+      {/* Dust Particles Animation */}
+      <DustParticles />
 
       {/* Content */}
       <div className="container mx-auto px-4 relative z-10">
