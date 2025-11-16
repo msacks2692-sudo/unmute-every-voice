@@ -1,9 +1,7 @@
 import { User } from "lucide-react";
-
 const Founder = () => {
-  return (
-    <section className="py-24 bg-muted/30">
-      <div className="container mx-auto px-4">
+  return <section className="py-24 bg-muted/30">
+      <div className="container mx-auto px-4 rounded-lg">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-12 animate-fade-up">Matthew</h2>
           
@@ -13,10 +11,7 @@ const Founder = () => {
 
           <div className="space-y-6 text-muted-foreground leading-relaxed animate-fade-up">
             <p>
-              Matthew Aquino is the founder and driving force behind Unmute1. As someone who
-              experienced firsthand the challenges of navigating a digital world not built with
-              accessibility in mind, Matthew understood that true innovation requires inclusive
-              design from the ground up.
+              Matthew the founder and driving force behind Unmute1. As someone who experienced firsthand the challenges of navigating a digital world not built with accessibility in mind, Matthew understood that true innovation requires inclusive design from the ground up.
             </p>
             <p>
               With a background in AI development and a passion for social impact, Matthew
@@ -32,8 +27,6 @@ const Founder = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Founder;
