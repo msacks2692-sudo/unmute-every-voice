@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Accessibility } from "lucide-react";
 import { AccessibilityDialog } from "./AccessibilityDialog";
+import { ReadingRuler } from "./ReadingRuler";
 
 export const AccessibilityButton = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [showInitialDialog, setShowInitialDialog] = useState(false);
+  const [readingRulerEnabled, setReadingRulerEnabled] = useState(false);
 
   useEffect(() => {
     // Check if user has seen the accessibility dialog before
@@ -34,7 +36,14 @@ export const AccessibilityButton = () => {
       </Button>
 
       {/* Accessibility Dialog */}
-      <AccessibilityDialog open={dialogOpen} onOpenChange={setDialogOpen} />
+      <AccessibilityDialog 
+        open={dialogOpen} 
+        onOpenChange={setDialogOpen}
+        onReadingRulerChange={setReadingRulerEnabled}
+      />
+
+      {/* Reading Ruler Overlay */}
+      <ReadingRuler enabled={readingRulerEnabled} />
     </>
   );
 };

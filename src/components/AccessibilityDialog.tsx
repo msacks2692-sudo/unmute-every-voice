@@ -3,18 +3,22 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { useState, useEffect } from "react";
-import { Accessibility, Type, Contrast, Volume } from "lucide-react";
+import { Accessibility, Type, Contrast, Volume, BookOpen, Ruler, Volume2 } from "lucide-react";
 
 interface AccessibilityDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onReadingRulerChange: (enabled: boolean) => void;
 }
 
-export const AccessibilityDialog = ({ open, onOpenChange }: AccessibilityDialogProps) => {
+export const AccessibilityDialog = ({ open, onOpenChange, onReadingRulerChange }: AccessibilityDialogProps) => {
   const [fontSize, setFontSize] = useState(100);
   const [highContrast, setHighContrast] = useState(false);
   const [screenReader, setScreenReader] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [dyslexicFont, setDyslexicFont] = useState(false);
+  const [readingRuler, setReadingRuler] = useState(false);
+  const [textToSpeech, setTextToSpeech] = useState(false);
 
   useEffect(() => {
     // Apply font size
@@ -38,6 +42,44 @@ export const AccessibilityDialog = ({ open, onOpenChange }: AccessibilityDialogP
       document.documentElement.classList.remove('reduce-motion');
     }
   }, [reduceMotion]);
+
+  useEffect(() => {
+    // Apply dyslexic font
+    if (dyslexicFont) {
+      document.documentElement.classList.add('dyslexic-font');
+    } else {
+      document.documentElement.classList.remove('dyslexic-font');
+    }
+  }, [dyslexicFont]);
+
+  useEffect(() => {
+    // Notify parent about reading ruler state
+    onReadingRulerChange(readingRuler);
+  }, [readingRuler, onReadingRulerChange]);
+
+  useEffect(() => {
+    // Apply text-to-speech functionality
+    if (textToSpeech) {
+      const handleTextSelection = () => {
+        const selection = window.getSelection();
+        const text = selection?.toString().trim();
+        if (text && text.length > 0) {
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.rate = 0.9;
+          utterance.pitch = 1;
+          speechSynthesis.speak(utterance);
+        }
+      };
+
+      document.addEventListener('mouseup', handleTextSelection);
+      return () => {
+        document.removeEventListener('mouseup', handleTextSelection);
+        speechSynthesis.cancel();
+      };
+    } else {
+      speechSynthesis.cancel();
+    }
+  }, [textToSpeech]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -130,6 +172,66 @@ export const AccessibilityDialog = ({ open, onOpenChange }: AccessibilityDialogP
               id="reduce-motion"
               checked={reduceMotion}
               onCheckedChange={setReduceMotion}
+            />
+          </div>
+
+          {/* Dyslexia-Friendly Font */}
+          <div className="flex items-center justify-between space-x-4 p-4 rounded-lg border bg-card shadow-sm">
+            <div className="flex items-start gap-3 flex-1">
+              <BookOpen className="w-5 h-5 text-primary mt-0.5" />
+              <div className="space-y-0.5">
+                <Label htmlFor="dyslexic-font" className="text-base font-semibold cursor-pointer">
+                  Dyslexia-Friendly Font
+                </Label>
+                <p className="text-sm text-muted-foreground">
+                  Use OpenDyslexic font for easier reading
+                </p>
+              </div>
+            </div>
+            <Switch
+              id="dyslexic-font"
+              checked={dyslexicFont}
+              onCheckedChange={setDyslexicFont}
+            />
+          </div>
+
+          {/* Reading Ruler */}
+          <div className="flex items-center justify-between space-x-4 p-4 rounded-lg border bg-card shadow-sm">
+            <div className="flex items-start gap-3 flex-1">
+              <Ruler className="w-5 h-5 text-primary mt-0.5" />
+              <div className="space-y-0.5">
+                <Label htmlFor="reading-ruler" className="text-base font-semibold cursor-pointer">
+                  Reading Ruler
+                </Label>
+                <p className="text-sm text-muted-foreground">
+                  Highlight text line to improve focus
+                </p>
+              </div>
+            </div>
+            <Switch
+              id="reading-ruler"
+              checked={readingRuler}
+              onCheckedChange={setReadingRuler}
+            />
+          </div>
+
+          {/* Text-to-Speech */}
+          <div className="flex items-center justify-between space-x-4 p-4 rounded-lg border bg-card shadow-sm">
+            <div className="flex items-start gap-3 flex-1">
+              <Volume2 className="w-5 h-5 text-primary mt-0.5" />
+              <div className="space-y-0.5">
+                <Label htmlFor="text-to-speech" className="text-base font-semibold cursor-pointer">
+                  Text-to-Speech
+                </Label>
+                <p className="text-sm text-muted-foreground">
+                  Select text to hear it read aloud
+                </p>
+              </div>
+            </div>
+            <Switch
+              id="text-to-speech"
+              checked={textToSpeech}
+              onCheckedChange={setTextToSpeech}
             />
           </div>
         </div>

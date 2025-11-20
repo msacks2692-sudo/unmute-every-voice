@@ -122,6 +122,11 @@ All colors MUST be HSL.
     --border: 0 0% 100%;
   }
 
+  /* Dyslexia-Friendly Font */
+  .dyslexic-font * {
+    font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif !important;
+  }
+
   /* Reduce Motion */
   .reduce-motion * {
     animation-duration: 0.01ms !important;
