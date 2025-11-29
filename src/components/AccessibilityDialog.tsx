@@ -2,6 +2,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState, useEffect } from "react";
 import { Accessibility, Type, Contrast, Volume, BookOpen, Ruler, Volume2 } from "lucide-react";
 
@@ -19,6 +20,9 @@ export const AccessibilityDialog = ({ open, onOpenChange, onReadingRulerChange }
   const [dyslexicFont, setDyslexicFont] = useState(false);
   const [readingRuler, setReadingRuler] = useState(false);
   const [textToSpeech, setTextToSpeech] = useState(false);
+  const [speechRate, setSpeechRate] = useState(1);
+  const [selectedVoice, setSelectedVoice] = useState<string>("");
+  const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
 
   useEffect(() => {
     // Apply font size
@@ -58,6 +62,24 @@ export const AccessibilityDialog = ({ open, onOpenChange, onReadingRulerChange }
   }, [readingRuler, onReadingRulerChange]);
 
   useEffect(() => {
+    // Load available voices
+    const loadVoices = () => {
+      const voices = speechSynthesis.getVoices();
+      setAvailableVoices(voices);
+      if (voices.length > 0 && !selectedVoice) {
+        setSelectedVoice(voices[0].name);
+      }
+    };
+
+    loadVoices();
+    speechSynthesis.addEventListener('voiceschanged', loadVoices);
+    
+    return () => {
+      speechSynthesis.removeEventListener('voiceschanged', loadVoices);
+    };
+  }, []);
+
+  useEffect(() => {
     // Apply text-to-speech functionality
     if (textToSpeech) {
       const handleTextSelection = () => {
@@ -65,8 +87,15 @@ export const AccessibilityDialog = ({ open, onOpenChange, onReadingRulerChange }
         const text = selection?.toString().trim();
         if (text && text.length > 0) {
           const utterance = new SpeechSynthesisUtterance(text);
-          utterance.rate = 0.9;
+          utterance.rate = speechRate;
           utterance.pitch = 1;
+          
+          // Set selected voice
+          const voice = availableVoices.find(v => v.name === selectedVoice);
+          if (voice) {
+            utterance.voice = voice;
+          }
+          
           speechSynthesis.speak(utterance);
         }
       };
@@ -79,7 +108,7 @@ export const AccessibilityDialog = ({ open, onOpenChange, onReadingRulerChange }
     } else {
       speechSynthesis.cancel();
     }
-  }, [textToSpeech]);
+  }, [textToSpeech, speechRate, selectedVoice, availableVoices]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -216,23 +245,67 @@ export const AccessibilityDialog = ({ open, onOpenChange, onReadingRulerChange }
           </div>
 
           {/* Text-to-Speech */}
-          <div className="flex items-center justify-between space-x-4 p-4 rounded-lg border bg-card shadow-sm">
-            <div className="flex items-start gap-3 flex-1">
-              <Volume2 className="w-5 h-5 text-primary mt-0.5" />
-              <div className="space-y-0.5">
-                <Label htmlFor="text-to-speech" className="text-base font-semibold cursor-pointer">
-                  Text-to-Speech
-                </Label>
-                <p className="text-sm text-muted-foreground">
-                  Select text to hear it read aloud
-                </p>
+          <div className="space-y-4 p-4 rounded-lg border bg-card shadow-sm">
+            <div className="flex items-center justify-between space-x-4">
+              <div className="flex items-start gap-3 flex-1">
+                <Volume2 className="w-5 h-5 text-primary mt-0.5" />
+                <div className="space-y-0.5">
+                  <Label htmlFor="text-to-speech" className="text-base font-semibold cursor-pointer">
+                    Text-to-Speech
+                  </Label>
+                  <p className="text-sm text-muted-foreground">
+                    Select text to hear it read aloud
+                  </p>
+                </div>
               </div>
+              <Switch
+                id="text-to-speech"
+                checked={textToSpeech}
+                onCheckedChange={setTextToSpeech}
+              />
             </div>
-            <Switch
-              id="text-to-speech"
-              checked={textToSpeech}
-              onCheckedChange={setTextToSpeech}
-            />
+
+            {textToSpeech && (
+              <div className="space-y-4 pl-8 pt-2">
+                {/* Voice Selection */}
+                <div className="space-y-2">
+                  <Label htmlFor="voice-select" className="text-sm font-medium">
+                    Voice
+                  </Label>
+                  <Select value={selectedVoice} onValueChange={setSelectedVoice}>
+                    <SelectTrigger id="voice-select" className="w-full">
+                      <SelectValue placeholder="Select a voice" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {availableVoices.map((voice) => (
+                        <SelectItem key={voice.name} value={voice.name}>
+                          {voice.name} ({voice.lang})
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Speed Control */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="speech-rate" className="text-sm font-medium">
+                      Reading Speed
+                    </Label>
+                    <span className="text-sm text-muted-foreground">{speechRate.toFixed(1)}x</span>
+                  </div>
+                  <Slider
+                    id="speech-rate"
+                    value={[speechRate]}
+                    onValueChange={(value) => setSpeechRate(value[0])}
+                    min={0.5}
+                    max={2}
+                    step={0.1}
+                    className="w-full"
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </DialogContent>
