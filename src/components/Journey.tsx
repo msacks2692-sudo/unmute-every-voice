@@ -1,4 +1,5 @@
 import { Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Journey = () => {
   const milestones = [
@@ -43,21 +44,34 @@ const Journey = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 animate-fade-up">
+        <motion.h2 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl md:text-5xl font-bold text-center mb-16"
+        >
           Our Journey
-        </h2>
+        </motion.h2>
 
         <div className="max-w-4xl mx-auto space-y-12">
           {milestones.map((milestone, index) => (
-            <div
+            <motion.div
               key={index}
-              className="flex gap-6 group animate-fade-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="flex gap-6 group"
             >
               <div className="flex flex-col items-center flex-shrink-0">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <motion.div 
+                  whileHover={{ scale: 1.2, rotate: 180 }}
+                  transition={{ duration: 0.4 }}
+                  className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors"
+                >
                   <Sparkles className="w-6 h-6 text-primary" />
-                </div>
+                </motion.div>
                 {index < milestones.length - 1 && (
                   <div className="w-px h-full bg-border mt-4" />
                 )}
@@ -66,7 +80,7 @@ const Journey = () => {
                 <h3 className="text-xl font-semibold mb-2 text-primary">{milestone.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{milestone.description}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
