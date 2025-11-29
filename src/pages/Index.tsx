@@ -5,6 +5,8 @@ import Founder from "@/components/Founder";
 import Journey from "@/components/Journey";
 import Barriers from "@/components/Barriers";
 import Impact from "@/components/Impact";
+import InteractiveDemo from "@/components/InteractiveDemo";
+import PayPalSection from "@/components/PayPalSection";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import { AccessibilityButton } from "@/components/AccessibilityButton";
@@ -19,6 +21,8 @@ const Index = () => {
       <Journey />
       <Barriers />
       <Impact />
+      <InteractiveDemo />
+      <PayPalSection />
       <CTA />
       <Footer />
       <AccessibilityButton />
