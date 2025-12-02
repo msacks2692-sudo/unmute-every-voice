@@ -14,13 +14,239 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      agent_conversations: {
+        Row: {
+          agent_type: string
+          conversation_title: string | null
+          created_at: string | null
+          id: string
+          messages: Json | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          agent_type: string
+          conversation_title?: string | null
+          created_at?: string | null
+          id?: string
+          messages?: Json | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          agent_type?: string
+          conversation_title?: string | null
+          created_at?: string | null
+          id?: string
+          messages?: Json | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      learning_progress: {
+        Row: {
+          created_at: string | null
+          id: string
+          last_activity: string | null
+          milestones_achieved: string[] | null
+          progress_level: number | null
+          skill_category: string
+          total_time_spent: number | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          last_activity?: string | null
+          milestones_achieved?: string[] | null
+          progress_level?: number | null
+          skill_category: string
+          total_time_spent?: number | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          last_activity?: string | null
+          milestones_achieved?: string[] | null
+          progress_level?: number | null
+          skill_category?: string
+          total_time_spent?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          full_name: string | null
+          id: string
+          onboarding_completed: boolean | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          full_name?: string | null
+          id: string
+          onboarding_completed?: boolean | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          full_name?: string | null
+          id?: string
+          onboarding_completed?: boolean | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      resource_bookmarks: {
+        Row: {
+          created_at: string | null
+          id: string
+          resource_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          resource_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          resource_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resource_bookmarks_resource_id_fkey"
+            columns: ["resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      resources: {
+        Row: {
+          category: string
+          created_at: string | null
+          description: string | null
+          difficulty_level: string | null
+          id: string
+          is_published: boolean | null
+          tags: string[] | null
+          title: string
+          url: string | null
+          view_count: number | null
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          description?: string | null
+          difficulty_level?: string | null
+          id?: string
+          is_published?: boolean | null
+          tags?: string[] | null
+          title: string
+          url?: string | null
+          view_count?: number | null
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          description?: string | null
+          difficulty_level?: string | null
+          id?: string
+          is_published?: boolean | null
+          tags?: string[] | null
+          title?: string
+          url?: string | null
+          view_count?: number | null
+        }
+        Relationships: []
+      }
+      speech_profiles: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_default: boolean | null
+          pitch: number | null
+          profile_name: string
+          speech_rate: number | null
+          user_id: string
+          voice_lang: string
+          voice_name: string
+          volume: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_default?: boolean | null
+          pitch?: number | null
+          profile_name: string
+          speech_rate?: number | null
+          user_id: string
+          voice_lang: string
+          voice_name: string
+          volume?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_default?: boolean | null
+          pitch?: number | null
+          profile_name?: string
+          speech_rate?: number | null
+          user_id?: string
+          voice_lang?: string
+          voice_name?: string
+          volume?: number | null
+        }
+        Relationships: []
+      }
+      user_interactions: {
+        Row: {
+          agent_type: string | null
+          created_at: string | null
+          duration_seconds: number | null
+          id: string
+          interaction_type: string
+          metadata: Json | null
+          resource_id: string | null
+          user_id: string
+        }
+        Insert: {
+          agent_type?: string | null
+          created_at?: string | null
+          duration_seconds?: number | null
+          id?: string
+          interaction_type: string
+          metadata?: Json | null
+          resource_id?: string | null
+          user_id: string
+        }
+        Update: {
+          agent_type?: string | null
+          created_at?: string | null
+          duration_seconds?: number | null
+          id?: string
+          interaction_type?: string
+          metadata?: Json | null
+          resource_id?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      increment: { Args: { resource_id: string }; Returns: undefined }
     }
     Enums: {
       [_ in never]: never
