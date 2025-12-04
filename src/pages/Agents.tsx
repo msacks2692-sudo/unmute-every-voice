@@ -102,7 +102,7 @@ const Agents = () => {
 
       if (data) {
         setConversationId(data.id);
-        const loadedMessages = data.messages as Message[];
+        const loadedMessages = (data.messages as unknown) as Message[];
         setMessages(loadedMessages.map((msg: any) => ({
           ...msg,
           timestamp: new Date(msg.timestamp),
@@ -124,7 +124,7 @@ const Agents = () => {
         user_id: user.id,
         agent_type: selectedAgent,
         conversation_title: updatedMessages[0]?.content.substring(0, 50) || 'New Conversation',
-        messages: updatedMessages,
+        messages: JSON.parse(JSON.stringify(updatedMessages)),
         updated_at: new Date().toISOString(),
       };
 

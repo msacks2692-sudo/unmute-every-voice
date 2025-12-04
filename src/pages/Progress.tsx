@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
+import { Progress as ProgressBar } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Mic, Settings, LogOut, TrendingUp, Award, Target, Clock, Activity } from 'lucide-react';
@@ -233,7 +233,7 @@ const Progress = () => {
                           </div>
                         </CardHeader>
                         <CardContent>
-                          <Progress value={progressValue} className="mb-4" />
+                          <ProgressBar value={progressValue} className="mb-4" />
                           {progress && (
                             <div className="space-y-2">
                               <div className="flex items-center justify-between text-sm">
