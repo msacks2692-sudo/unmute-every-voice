@@ -126,9 +126,7 @@ const Resources = () => {
       });
 
       await supabase.rpc('increment', {
-        row_id: resourceId,
-        table_name: 'resources',
-        column_name: 'view_count',
+        resource_id: resourceId,
       });
     } catch (error) {
       console.error('Error tracking view:', error);
