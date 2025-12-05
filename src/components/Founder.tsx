@@ -34,18 +34,16 @@ const Founder = () => {
             className="space-y-6 text-muted-foreground leading-relaxed"
           >
             <p>
-              Matthew the founder and driving force behind Unmute1. As someone who experienced firsthand the challenges of navigating a digital world not built with accessibility in mind, Matthew understood that true innovation requires inclusive design from the ground up.
+              Matthew is the founder and driving force behind Unmute1. Before entering the tech world, Matthew worked as an EMT on a 911 ambulance in New York City, responding to emergencies across the five boroughs. Those years on the front lines taught him the profound importance of clear communication in critical moments—and how devastating it can be when barriers prevent people from being heard.
             </p>
             <p>
-              With a background in AI development and a passion for social impact, Matthew
-              recognized that the AI revolution presented both a challenge and an opportunity. The
-              challenge: ensuring that cutting-edge technology doesn't leave anyone behind. The
-              opportunity: to build systems that work better for everyone by centering the needs
-              of those historically excluded.
+              As someone who experienced firsthand the challenges of navigating a digital world not built with accessibility in mind, Matthew understood that true innovation requires inclusive design from the ground up.
+            </p>
+            <p>
+              With a background spanning emergency medicine and AI development, Matthew brings a unique perspective to accessibility technology. The challenge: ensuring that cutting-edge technology doesn't leave anyone behind. The opportunity: to build systems that work better for everyone by centering the needs of those historically excluded.
             </p>
             <p className="text-primary font-semibold text-lg italic pt-4">
-              "Technology doesn't truly work until it works for everyone. That's not just our
-              mission—it's our measure of success."
+              "On the ambulance, I saw what happens when people can't communicate in their most vulnerable moments. Technology doesn't truly work until it works for everyone."
             </p>
           </motion.div>
         </div>
