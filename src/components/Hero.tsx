@@ -3,7 +3,6 @@ import { ArrowRight, Mic } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 import DustParticles from "./DustParticles";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Link } from "react-router-dom";
 
 const Hero = () => {
   const { scrollY } = useScroll();
@@ -74,23 +73,19 @@ const Hero = () => {
           </motion.p>
 
           {/* CTA Buttons */}
-          <motion.div
+          <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
           >
-            <Link to="/signup">
-              <Button variant="hero" size="lg" className="group">
-                Join the Platform
-                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-            <Link to="/signin">
-              <Button variant="outline" size="lg">
-                Sign In
-              </Button>
-            </Link>
+            <Button variant="hero" size="lg" className="group">
+              Join the Movement
+              <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+            </Button>
+            <Button variant="outline" size="lg">
+              Learn More
+            </Button>
           </motion.div>
 
           {/* Stats */}
