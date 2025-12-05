@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const CTA = () => {
   return (
@@ -70,11 +71,13 @@ const CTA = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center pt-8"
           >
-            <Button variant="hero" size="lg" className="group">
-              <Mail className="w-5 h-5" />
-              Get Early Access
-              <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <Link to="/mvp">
+              <Button variant="hero" size="lg" className="group">
+                <Mail className="w-5 h-5" />
+                Get Early Access
+                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
             <Button variant="outline" size="lg" className="border-primary/20 hover:border-primary">
               Learn About Our Work
             </Button>

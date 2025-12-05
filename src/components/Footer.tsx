@@ -1,4 +1,5 @@
 import { Mic, Twitter } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -21,7 +22,14 @@ const Footer = () => {
             © {currentYear} Unmute1. Empowering every voice through accessible AI.
           </p>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-6 flex-wrap justify-center md:justify-end">
+            <Link
+              to="/mvp"
+              className="text-sm hover:text-primary transition-colors font-medium"
+              aria-label="Get Early Access"
+            >
+              Early Access
+            </Link>
             <a
               href="https://twitter.com/unmute1ai"
               target="_blank"

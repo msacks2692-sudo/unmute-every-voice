@@ -3,6 +3,7 @@ import { ArrowRight, Mic } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 import DustParticles from "./DustParticles";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const { scrollY } = useScroll();
@@ -79,10 +80,12 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
           >
-            <Button variant="hero" size="lg" className="group">
-              Join the Movement
-              <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <Link to="/mvp">
+              <Button variant="hero" size="lg" className="group">
+                Get Early Access
+                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
             <Button variant="outline" size="lg">
               Learn More
             </Button>
