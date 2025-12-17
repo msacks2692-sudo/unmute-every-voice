@@ -1,9 +1,18 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, ArrowLeft, Mail } from "lucide-react";
+import { CheckCircle, ArrowLeft, Mail, Twitter, Linkedin, Facebook } from "lucide-react";
 import { motion } from "framer-motion";
 
 const ThankYou = () => {
+  const shareText = "I just signed up for early access to Unmute1 - AI-powered accessibility tools that empower every voice! 🎤✨";
+  const shareUrl = "https://unmute1.com/mvp";
+
+  const shareLinks = {
+    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`,
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`,
+  };
+
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-4">
       <motion.div 
@@ -25,9 +34,31 @@ const ThankYou = () => {
           You're on the list!
         </h1>
         
-        <p className="text-muted-foreground mb-8">
+        <p className="text-muted-foreground mb-6">
           Thank you for signing up for early access to Unmute1. We'll be in touch soon with updates and your exclusive invitation.
         </p>
+
+        {/* Social sharing */}
+        <div className="mb-8">
+          <p className="text-sm text-muted-foreground mb-3">Spread the word</p>
+          <div className="flex items-center justify-center gap-3">
+            <a href={shareLinks.twitter} target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="icon" className="rounded-full hover:bg-primary/10 hover:text-primary hover:border-primary/30">
+                <Twitter className="w-4 h-4" />
+              </Button>
+            </a>
+            <a href={shareLinks.linkedin} target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="icon" className="rounded-full hover:bg-primary/10 hover:text-primary hover:border-primary/30">
+                <Linkedin className="w-4 h-4" />
+              </Button>
+            </a>
+            <a href={shareLinks.facebook} target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="icon" className="rounded-full hover:bg-primary/10 hover:text-primary hover:border-primary/30">
+                <Facebook className="w-4 h-4" />
+              </Button>
+            </a>
+          </div>
+        </div>
 
         <div className="bg-muted/50 rounded-lg p-4 mb-8 flex items-center gap-3">
           <Mail className="w-5 h-5 text-primary flex-shrink-0" />
