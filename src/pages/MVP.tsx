@@ -12,8 +12,8 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
-import { Mic, ArrowRight, Volume2, BookOpen, Bot, TrendingUp, CheckCircle, Loader2, Play } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Mic, ArrowRight, Volume2, BookOpen, Bot, TrendingUp, Loader2, Play } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 const signupSchema = z.object({
@@ -50,8 +50,8 @@ const MVP = () => {
   const [fullName, setFullName] = useState("");
   const [interestArea, setInterestArea] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -81,11 +81,7 @@ const MVP = () => {
         throw error;
       }
 
-      setIsSuccess(true);
-      toast({
-        title: "You're on the list!",
-        description: "We'll notify you when we launch. Thank you for joining!",
-      });
+      navigate("/thank-you");
     } catch (err) {
       if (err instanceof z.ZodError) {
         toast({
@@ -168,24 +164,10 @@ const MVP = () => {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="max-w-md mx-auto"
             >
-              {isSuccess ? (
-                <div className="bg-card p-8 rounded-xl shadow-elevated border border-border text-center space-y-4">
-                  <CheckCircle className="w-16 h-16 text-primary mx-auto" />
-                  <h3 className="text-xl font-semibold">You're on the list!</h3>
-                  <p className="text-muted-foreground">
-                    We'll send you an email when we're ready to launch. Thank you for joining Unmute1!
-                  </p>
-                  <Link to="/">
-                    <Button variant="outline" className="mt-4">
-                      Back to Home
-                    </Button>
-                  </Link>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="bg-card p-6 md:p-8 rounded-xl shadow-elevated border border-border space-y-4">
-                  <div className="space-y-2 text-left">
-                    <Label htmlFor="email">Email *</Label>
-                    <Input
+              <form onSubmit={handleSubmit} className="bg-card p-6 md:p-8 rounded-xl shadow-elevated border border-border space-y-4">
+                <div className="space-y-2 text-left">
+                  <Label htmlFor="email">Email *</Label>
+                  <Input
                       id="email"
                       type="email"
                       placeholder="you@example.com"
@@ -254,7 +236,6 @@ const MVP = () => {
                     </div>
                   </div>
                 </form>
-              )}
             </motion.div>
           </div>
         </div>
