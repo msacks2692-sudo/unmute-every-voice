@@ -40,6 +40,27 @@ Deno.serve(async (req) => {
 
     console.log(`Authenticated request from user: ${user.id}`);
 
+    // Check rate limit (20 requests per minute per user)
+    const { data: rateLimitAllowed, error: rateLimitError } = await supabaseClient
+      .rpc('check_rate_limit', {
+        p_user_id: user.id,
+        p_function_name: 'ai-image-description',
+        p_max_requests: 20,
+        p_window_minutes: 1
+      });
+
+    if (rateLimitError) {
+      console.error("Rate limit check error:", rateLimitError.message);
+    }
+
+    if (!rateLimitAllowed) {
+      console.log(`Rate limit exceeded for user: ${user.id}`);
+      return new Response(
+        JSON.stringify({ error: "Rate limit exceeded. Please wait a moment before trying again." }),
+        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const { text } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
 
