@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { DollarSign, Heart, Zap } from "lucide-react";
-
+import { DollarSign, Heart, Zap, Bitcoin } from "lucide-react";
 const PayPalSection = () => {
   const plans = [
     {
@@ -19,6 +18,14 @@ const PayPalSection = () => {
       description: "Regular support for ongoing development",
       features: ["All one-time benefits", "Monthly impact reports", "Early access to features", "Community badge"],
       popular: true,
+    },
+    {
+      name: "Crypto",
+      icon: Bitcoin,
+      price: "Any Amount",
+      description: "Donate with cryptocurrency via Coinbase",
+      features: ["Bitcoin, Ethereum & more", "Low transaction fees", "Global accessibility", "Instant transfer"],
+      isCrypto: true,
     },
     {
       name: "Enterprise",
@@ -47,7 +54,7 @@ const PayPalSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {plans.map((plan, index) => {
             const Icon = plan.icon;
             return (
@@ -59,7 +66,7 @@ const PayPalSection = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <Card
-                  className={`p-8 h-full flex flex-col relative ${
+                  className={`p-6 h-full flex flex-col relative ${
                     plan.popular ? "border-primary shadow-elevated" : ""
                   }`}
                 >
@@ -69,27 +76,35 @@ const PayPalSection = () => {
                     </div>
                   )}
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <Icon className="w-6 h-6 text-primary" />
+                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${plan.isCrypto ? "bg-orange-500/10" : "bg-primary/10"}`}>
+                      <Icon className={`w-5 h-5 ${plan.isCrypto ? "text-orange-500" : "text-primary"}`} />
                     </div>
-                    <h3 className="text-2xl font-bold">{plan.name}</h3>
+                    <h3 className="text-xl font-bold">{plan.name}</h3>
                   </div>
-                  <div className="text-4xl font-bold mb-2">{plan.price}</div>
-                  <p className="text-muted-foreground mb-6">{plan.description}</p>
-                  <ul className="space-y-3 mb-8 flex-grow">
+                  <div className="text-3xl font-bold mb-2">{plan.price}</div>
+                  <p className="text-muted-foreground text-sm mb-4">{plan.description}</p>
+                  <ul className="space-y-2 mb-6 flex-grow">
                     {plan.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2" />
+                        <div className={`w-1.5 h-1.5 rounded-full mt-2 ${plan.isCrypto ? "bg-orange-500" : "bg-primary"}`} />
                         <span className="text-sm">{feature}</span>
                       </li>
                     ))}
                   </ul>
                   <Button
                     variant={plan.popular ? "default" : "outline"}
-                    className="w-full"
-                    onClick={() => window.open("https://www.paypal.com/donate", "_blank")}
+                    className={`w-full ${plan.isCrypto ? "hover:bg-orange-500/10 hover:text-orange-500 hover:border-orange-500/30" : ""}`}
+                    onClick={() => {
+                      if (plan.isCrypto) {
+                        window.open("https://commerce.coinbase.com/checkout/YOUR-CHECKOUT-ID", "_blank");
+                      } else if (plan.name === "Enterprise") {
+                        window.location.href = "mailto:contact@unmute1.com?subject=Enterprise%20Partnership";
+                      } else {
+                        window.open("https://www.paypal.com/donate", "_blank");
+                      }
+                    }}
                   >
-                    {plan.name === "Enterprise" ? "Contact Us" : "Choose Plan"}
+                    {plan.isCrypto ? "Donate Crypto" : plan.name === "Enterprise" ? "Contact Us" : "Choose Plan"}
                   </Button>
                 </Card>
               </motion.div>
