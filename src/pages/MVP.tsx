@@ -12,7 +12,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
-import { Mic, ArrowRight, Volume2, BookOpen, Bot, TrendingUp, CheckCircle, Loader2 } from "lucide-react";
+import { Mic, ArrowRight, Volume2, BookOpen, Bot, TrendingUp, CheckCircle, Loader2, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 
@@ -60,23 +60,6 @@ const MVP = () => {
     try {
       const validated = signupSchema.parse({ email, full_name: fullName, interest_area: interestArea });
 
-      // Check if email already exists
-      const { data: existing } = await supabase
-        .from("early_access_signups")
-        .select("email")
-        .eq("email", validated.email)
-        .single();
-
-      if (existing) {
-        toast({
-          title: "Already signed up!",
-          description: "This email is already on our early access list.",
-          variant: "default",
-        });
-        setIsLoading(false);
-        return;
-      }
-
       // Insert new signup
       const { error } = await supabase.from("early_access_signups").insert({
         email: validated.email,
@@ -84,7 +67,19 @@ const MVP = () => {
         interest_area: validated.interest_area || null,
       });
 
-      if (error) throw error;
+      if (error) {
+        // Handle duplicate email error (unique constraint violation)
+        if (error.code === "23505") {
+          toast({
+            title: "Already signed up!",
+            description: "This email is already on our early access list.",
+            variant: "default",
+          });
+          setIsLoading(false);
+          return;
+        }
+        throw error;
+      }
 
       setIsSuccess(true);
       toast({
@@ -262,6 +257,51 @@ const MVP = () => {
               )}
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Explainer Video Section */}
+      <section className="py-20 md:py-32 bg-background">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">See It in Action</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Watch how Unmute1 transforms accessibility with AI-powered tools.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="relative aspect-video bg-gradient-to-br from-primary/20 via-secondary/30 to-accent/20 rounded-2xl overflow-hidden shadow-elevated border border-border">
+              {/* Placeholder content */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+                <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mb-6 backdrop-blur-sm border border-primary/30">
+                  <Play className="w-10 h-10 text-primary ml-1" />
+                </div>
+                <h3 className="text-xl md:text-2xl font-semibold mb-2">Explainer Video Coming Soon</h3>
+                <p className="text-muted-foreground max-w-md">
+                  We're creating a video to showcase how Unmute1 empowers accessibility. Check back soon!
+                </p>
+              </div>
+              
+              {/* Decorative elements */}
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-4 left-4 w-32 h-32 bg-primary/10 rounded-full blur-2xl" />
+                <div className="absolute bottom-4 right-4 w-32 h-32 bg-accent/10 rounded-full blur-2xl" />
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
