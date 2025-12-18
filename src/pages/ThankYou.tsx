@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, ArrowLeft, Mail, Twitter, Linkedin, Facebook } from "lucide-react";
+import { CheckCircle, ArrowLeft, Mail, Linkedin, Facebook } from "lucide-react";
 import { motion } from "framer-motion";
 
 const ThankYou = () => {
@@ -40,13 +40,19 @@ const ThankYou = () => {
 
         {/* Social sharing */}
         <div className="mb-8">
-          <p className="text-sm text-muted-foreground mb-3">Spread the word</p>
+          <p className="text-sm text-muted-foreground mb-4">Share the news</p>
+          
+          {/* Primary X/Twitter share button */}
+          <a href={shareLinks.twitter} target="_blank" rel="noopener noreferrer" className="block mb-4">
+            <Button className="w-full gap-2 bg-black hover:bg-black/80 text-white">
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              Post on X
+            </Button>
+          </a>
+
           <div className="flex items-center justify-center gap-3">
-            <a href={shareLinks.twitter} target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" size="icon" className="rounded-full hover:bg-primary/10 hover:text-primary hover:border-primary/30">
-                <Twitter className="w-4 h-4" />
-              </Button>
-            </a>
             <a href={shareLinks.linkedin} target="_blank" rel="noopener noreferrer">
               <Button variant="outline" size="icon" className="rounded-full hover:bg-primary/10 hover:text-primary hover:border-primary/30">
                 <Linkedin className="w-4 h-4" />
