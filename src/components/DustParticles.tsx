@@ -17,15 +17,16 @@ const DustParticles = () => {
   useEffect(() => {
     const generateParticles = () => {
       const newParticles: Particle[] = [];
-      for (let i = 0; i < 40; i++) {
+      for (let i = 0; i < 50; i++) {
+        const size = Math.random() * 6 + 2; // Larger particles (2-8px)
         newParticles.push({
           id: i,
           x: Math.random() * 100,
           y: Math.random() * 100,
-          size: Math.random() * 4 + 1,
+          size,
           duration: Math.random() * 10 + 15,
           delay: Math.random() * 5,
-          parallaxSpeed: Math.random() * 0.5 + 0.1, // 0.1 to 0.6 for varied depth
+          parallaxSpeed: Math.random() * 0.4 + 0.1,
         });
       }
       setParticles(newParticles);
@@ -51,7 +52,7 @@ const DustParticles = () => {
         return (
           <div
             key={particle.id}
-            className="absolute rounded-full bg-foreground/5 animate-dust-float"
+            className="absolute rounded-full animate-dust-float"
             style={{
               left: `${particle.x}%`,
               top: `${particle.y}%`,
@@ -60,7 +61,10 @@ const DustParticles = () => {
               animationDuration: `${particle.duration}s`,
               animationDelay: `${particle.delay}s`,
               transform: `translateY(${parallaxOffset}px)`,
-              opacity: particle.size > 3 ? 0.08 : 0.04, // Larger particles slightly more visible
+              background: particle.size > 5 
+                ? 'radial-gradient(circle, hsl(var(--primary) / 0.15) 0%, transparent 70%)' 
+                : 'hsl(var(--foreground) / 0.08)',
+              boxShadow: particle.size > 5 ? '0 0 8px hsl(var(--primary) / 0.1)' : 'none',
             }}
           />
         );
