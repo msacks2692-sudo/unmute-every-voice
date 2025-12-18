@@ -10,10 +10,16 @@ import PayPalSection from "@/components/PayPalSection";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import { AccessibilityButton } from "@/components/AccessibilityButton";
+import DustParticles from "@/components/DustParticles";
 
 const Index = () => {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen relative">
+      {/* Global dust/bubble particles effect */}
+      <div className="fixed inset-0 pointer-events-none z-50">
+        <DustParticles />
+      </div>
+      
       <Hero />
       <Story />
       <Mission />
