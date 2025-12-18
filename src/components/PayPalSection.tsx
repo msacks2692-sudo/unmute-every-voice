@@ -1,8 +1,24 @@
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { DollarSign, Heart, Zap, Bitcoin } from "lucide-react";
+import { DollarSign, Heart, Zap, Bitcoin, Copy, Check } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+
 const PayPalSection = () => {
+  const [copiedAddress, setCopiedAddress] = useState<string | null>(null);
+
+  const walletAddresses = {
+    btc: "YOUR-BTC-WALLET-ADDRESS",
+    eth: "YOUR-ETH-WALLET-ADDRESS",
+  };
+
+  const copyToClipboard = (address: string, type: string) => {
+    navigator.clipboard.writeText(address);
+    setCopiedAddress(type);
+    toast.success(`${type.toUpperCase()} address copied to clipboard!`);
+    setTimeout(() => setCopiedAddress(null), 2000);
+  };
   const plans = [
     {
       name: "Support Once",
@@ -91,6 +107,31 @@ const PayPalSection = () => {
                       </li>
                     ))}
                   </ul>
+                  {plan.isCrypto && (
+                    <div className="space-y-2 mb-4">
+                      <p className="text-xs text-muted-foreground font-medium">Or send directly:</p>
+                      <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                        <span className="text-xs font-mono truncate flex-1">BTC: {walletAddresses.btc.slice(0, 12)}...</span>
+                        <button
+                          onClick={() => copyToClipboard(walletAddresses.btc, "btc")}
+                          className="p-1 hover:bg-muted rounded transition-colors"
+                          aria-label="Copy BTC address"
+                        >
+                          {copiedAddress === "btc" ? <Check className="w-3.5 h-3.5 text-green-500" /> : <Copy className="w-3.5 h-3.5 text-muted-foreground" />}
+                        </button>
+                      </div>
+                      <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                        <span className="text-xs font-mono truncate flex-1">ETH: {walletAddresses.eth.slice(0, 12)}...</span>
+                        <button
+                          onClick={() => copyToClipboard(walletAddresses.eth, "eth")}
+                          className="p-1 hover:bg-muted rounded transition-colors"
+                          aria-label="Copy ETH address"
+                        >
+                          {copiedAddress === "eth" ? <Check className="w-3.5 h-3.5 text-green-500" /> : <Copy className="w-3.5 h-3.5 text-muted-foreground" />}
+                        </button>
+                      </div>
+                    </div>
+                  )}
                   <Button
                     variant={plan.popular ? "default" : "outline"}
                     className={`w-full ${plan.isCrypto ? "hover:bg-orange-500/10 hover:text-orange-500 hover:border-orange-500/30" : ""}`}
@@ -104,7 +145,7 @@ const PayPalSection = () => {
                       }
                     }}
                   >
-                    {plan.isCrypto ? "Donate Crypto" : plan.name === "Enterprise" ? "Contact Us" : "Choose Plan"}
+                    {plan.isCrypto ? "Donate via Coinbase" : plan.name === "Enterprise" ? "Contact Us" : "Choose Plan"}
                   </Button>
                 </Card>
               </motion.div>
