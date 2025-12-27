@@ -15,6 +15,7 @@ import { AccessibilityButton } from "@/components/AccessibilityButton";
 import DustParticles from "@/components/DustParticles";
 import LoadingScreen from "@/components/LoadingScreen";
 import Navbar from "@/components/Navbar";
+import SnowEffect from "@/components/SnowEffect";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -36,8 +37,11 @@ const Index = () => {
       <main className="min-h-screen relative">
         <Navbar />
         
+        {/* Snow effect */}
+        <SnowEffect />
+        
         {/* Global dust/bubble particles effect */}
-        <div className="fixed inset-0 pointer-events-none z-50">
+        <div className="fixed inset-0 pointer-events-none z-30">
           <DustParticles />
         </div>
         
