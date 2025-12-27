@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSnow } from "@/contexts/SnowContext";
 
 interface Snowflake {
   id: number;
@@ -11,6 +12,7 @@ interface Snowflake {
 }
 
 const SnowEffect = () => {
+  const { snowEnabled } = useSnow();
   const [snowflakes, setSnowflakes] = useState<Snowflake[]>([]);
 
   useEffect(() => {
@@ -32,6 +34,8 @@ const SnowEffect = () => {
 
     generateSnowflakes();
   }, []);
+
+  if (!snowEnabled) return null;
 
   return (
     <div className="fixed inset-0 pointer-events-none z-40 overflow-hidden">
