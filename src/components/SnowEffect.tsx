@@ -42,12 +42,14 @@ const SnowEffect = () => {
       {snowflakes.map((flake) => (
         <div
           key={flake.id}
-          className="absolute rounded-full bg-foreground/80 animate-snowfall"
+          className="absolute rounded-full animate-snowfall"
           style={{
             left: `${flake.x}%`,
             width: `${flake.size}px`,
             height: `${flake.size}px`,
             opacity: flake.opacity,
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
+            boxShadow: "0 0 4px rgba(255, 255, 255, 0.5)",
             animationDuration: `${flake.duration}s`,
             animationDelay: `${flake.delay}s`,
             ["--drift" as string]: `${flake.drift}px`,
