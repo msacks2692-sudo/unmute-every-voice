@@ -147,6 +147,22 @@ export default {
             opacity: "0",
           },
         },
+        "snowfall": {
+          "0%": {
+            transform: "translateY(-10px) translateX(0)",
+            opacity: "0",
+          },
+          "10%": {
+            opacity: "1",
+          },
+          "90%": {
+            opacity: "1",
+          },
+          "100%": {
+            transform: "translateY(100vh) translateX(var(--drift, 0px))",
+            opacity: "0",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -156,6 +172,7 @@ export default {
         "slide-in": "slide-in 0.8s ease-out",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "dust-float": "dust-float 20s linear infinite",
+        "snowfall": "snowfall linear infinite",
       },
     },
   },
