@@ -4,7 +4,8 @@ import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState, useEffect } from "react";
-import { Accessibility, Type, Contrast, Volume, BookOpen, Ruler, Volume2 } from "lucide-react";
+import { Accessibility, Type, Contrast, Volume, BookOpen, Ruler, Volume2, Snowflake } from "lucide-react";
+import { useSnow } from "@/contexts/SnowContext";
 
 interface AccessibilityDialogProps {
   open: boolean;
@@ -13,6 +14,7 @@ interface AccessibilityDialogProps {
 }
 
 export const AccessibilityDialog = ({ open, onOpenChange, onReadingRulerChange }: AccessibilityDialogProps) => {
+  const { snowEnabled, setSnowEnabled } = useSnow();
   const [fontSize, setFontSize] = useState(100);
   const [highContrast, setHighContrast] = useState(false);
   const [screenReader, setScreenReader] = useState(false);
@@ -204,7 +206,26 @@ export const AccessibilityDialog = ({ open, onOpenChange, onReadingRulerChange }
             />
           </div>
 
-          {/* Dyslexia-Friendly Font */}
+          {/* Snow Effect Toggle */}
+          <div className="flex items-center justify-between space-x-4 p-4 rounded-lg border bg-card shadow-sm">
+            <div className="flex items-start gap-3 flex-1">
+              <Snowflake className="w-5 h-5 text-primary mt-0.5" />
+              <div className="space-y-0.5">
+                <Label htmlFor="snow-effect" className="text-base font-semibold cursor-pointer">
+                  Snow Effect
+                </Label>
+                <p className="text-sm text-muted-foreground">
+                  Toggle falling snow animation
+                </p>
+              </div>
+            </div>
+            <Switch
+              id="snow-effect"
+              checked={snowEnabled}
+              onCheckedChange={setSnowEnabled}
+            />
+          </div>
+
           <div className="flex items-center justify-between space-x-4 p-4 rounded-lg border bg-card shadow-sm">
             <div className="flex items-start gap-3 flex-1">
               <BookOpen className="w-5 h-5 text-primary mt-0.5" />
