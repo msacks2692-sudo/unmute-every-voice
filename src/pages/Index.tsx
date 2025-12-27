@@ -14,6 +14,7 @@ import Footer from "@/components/Footer";
 import { AccessibilityButton } from "@/components/AccessibilityButton";
 import DustParticles from "@/components/DustParticles";
 import LoadingScreen from "@/components/LoadingScreen";
+import Navbar from "@/components/Navbar";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -33,6 +34,8 @@ const Index = () => {
       </AnimatePresence>
       
       <main className="min-h-screen relative">
+        <Navbar />
+        
         {/* Global dust/bubble particles effect */}
         <div className="fixed inset-0 pointer-events-none z-50">
           <DustParticles />
