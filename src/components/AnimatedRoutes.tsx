@@ -9,6 +9,7 @@ import ThankYou from "@/pages/ThankYou";
 import NotFound from "@/pages/NotFound";
 import PageTransition from "./PageTransition";
 import ScrollToTop from "./ScrollToTop";
+import { CookieConsent } from "./CookieConsent";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -16,6 +17,7 @@ const AnimatedRoutes = () => {
   return (
     <>
       <ScrollToTop />
+      <CookieConsent />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route
