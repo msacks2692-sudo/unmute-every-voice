@@ -5,7 +5,7 @@ import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState, useEffect } from "react";
 import { Accessibility, Type, Contrast, Volume, BookOpen, Ruler, Volume2, Snowflake } from "lucide-react";
-import { useSnow } from "@/contexts/SnowContext";
+import { useAccessibility } from "@/contexts/AccessibilityContext";
 
 interface AccessibilityDialogProps {
   open: boolean;
@@ -14,57 +14,36 @@ interface AccessibilityDialogProps {
 }
 
 export const AccessibilityDialog = ({ open, onOpenChange, onReadingRulerChange }: AccessibilityDialogProps) => {
-  const { snowEnabled, setSnowEnabled } = useSnow();
-  const [fontSize, setFontSize] = useState(100);
-  const [highContrast, setHighContrast] = useState(false);
-  const [screenReader, setScreenReader] = useState(false);
-  const [reduceMotion, setReduceMotion] = useState(false);
-  const [dyslexicFont, setDyslexicFont] = useState(false);
-  const [readingRuler, setReadingRuler] = useState(false);
-  const [textToSpeech, setTextToSpeech] = useState(false);
-  const [speechRate, setSpeechRate] = useState(1);
-  const [selectedVoice, setSelectedVoice] = useState<string>("");
+  const {
+    snowEnabled,
+    setSnowEnabled,
+    fontSize,
+    setFontSize,
+    highContrast,
+    setHighContrast,
+    screenReader,
+    setScreenReader,
+    reduceMotion,
+    setReduceMotion,
+    dyslexicFont,
+    setDyslexicFont,
+    readingRuler,
+    setReadingRuler,
+    textToSpeech,
+    setTextToSpeech,
+    speechRate,
+    setSpeechRate,
+    selectedVoice,
+    setSelectedVoice,
+  } = useAccessibility();
+
   const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
 
   useEffect(() => {
-    // Apply font size
-    document.documentElement.style.fontSize = `${fontSize}%`;
-  }, [fontSize]);
-
-  useEffect(() => {
-    // Apply high contrast
-    if (highContrast) {
-      document.documentElement.classList.add('high-contrast');
-    } else {
-      document.documentElement.classList.remove('high-contrast');
-    }
-  }, [highContrast]);
-
-  useEffect(() => {
-    // Apply reduced motion
-    if (reduceMotion) {
-      document.documentElement.classList.add('reduce-motion');
-    } else {
-      document.documentElement.classList.remove('reduce-motion');
-    }
-  }, [reduceMotion]);
-
-  useEffect(() => {
-    // Apply dyslexic font
-    if (dyslexicFont) {
-      document.documentElement.classList.add('dyslexic-font');
-    } else {
-      document.documentElement.classList.remove('dyslexic-font');
-    }
-  }, [dyslexicFont]);
-
-  useEffect(() => {
-    // Notify parent about reading ruler state
     onReadingRulerChange(readingRuler);
   }, [readingRuler, onReadingRulerChange]);
 
   useEffect(() => {
-    // Load available voices
     const loadVoices = () => {
       const voices = speechSynthesis.getVoices();
       setAvailableVoices(voices);
@@ -79,10 +58,9 @@ export const AccessibilityDialog = ({ open, onOpenChange, onReadingRulerChange }
     return () => {
       speechSynthesis.removeEventListener('voiceschanged', loadVoices);
     };
-  }, []);
+  }, [selectedVoice, setSelectedVoice]);
 
   useEffect(() => {
-    // Apply text-to-speech functionality
     if (textToSpeech) {
       const handleTextSelection = () => {
         const selection = window.getSelection();
@@ -92,7 +70,6 @@ export const AccessibilityDialog = ({ open, onOpenChange, onReadingRulerChange }
           utterance.rate = speechRate;
           utterance.pitch = 1;
           
-          // Set selected voice
           const voice = availableVoices.find(v => v.name === selectedVoice);
           if (voice) {
             utterance.voice = voice;

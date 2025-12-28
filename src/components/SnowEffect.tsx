@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSnow } from "@/contexts/SnowContext";
+import { useAccessibility } from "@/contexts/AccessibilityContext";
 
 interface Snowflake {
   id: number;
@@ -12,7 +12,7 @@ interface Snowflake {
 }
 
 const SnowEffect = () => {
-  const { snowEnabled } = useSnow();
+  const { snowEnabled } = useAccessibility();
   const [snowflakes, setSnowflakes] = useState<Snowflake[]>([]);
 
   useEffect(() => {
