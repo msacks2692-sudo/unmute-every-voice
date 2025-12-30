@@ -1,5 +1,6 @@
-import { Mic, Twitter } from "lucide-react";
+import { Mic, Twitter, Cookie } from "lucide-react";
 import { Link } from "react-router-dom";
+import { reopenCookieConsent } from "./CookieConsent";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -40,6 +41,14 @@ const Footer = () => {
               <Twitter className="w-4 h-4 group-hover:scale-110 transition-transform" />
               <span>Follow @unmute1ai</span>
             </a>
+            <button
+              onClick={reopenCookieConsent}
+              className="flex items-center gap-1 text-sm hover:text-primary transition-colors"
+              aria-label="Manage Cookies"
+            >
+              <Cookie className="w-3 h-3" />
+              Manage Cookies
+            </button>
             <a
               href="#"
               className="text-sm hover:text-primary transition-colors"
