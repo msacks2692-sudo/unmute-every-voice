@@ -1,10 +1,11 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import { Accessibility, Type, Contrast, Volume, BookOpen, Ruler, Volume2, Snowflake } from "lucide-react";
+import { Accessibility, Type, Contrast, Volume, BookOpen, Ruler, Volume2, Snowflake, RotateCcw } from "lucide-react";
 import { useAccessibility } from "@/contexts/AccessibilityContext";
 
 interface AccessibilityDialogProps {
@@ -35,6 +36,7 @@ export const AccessibilityDialog = ({ open, onOpenChange, onReadingRulerChange }
     setSpeechRate,
     selectedVoice,
     setSelectedVoice,
+    resetToDefaults,
   } = useAccessibility();
 
   const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
@@ -306,6 +308,17 @@ export const AccessibilityDialog = ({ open, onOpenChange, onReadingRulerChange }
             )}
           </div>
         </div>
+
+        <DialogFooter className="border-t pt-4">
+          <Button
+            variant="outline"
+            onClick={resetToDefaults}
+            className="w-full sm:w-auto"
+          >
+            <RotateCcw className="w-4 h-4 mr-2" />
+            Reset to Defaults
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

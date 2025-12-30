@@ -29,7 +29,7 @@ const values = [
 
 const About = () => {
   return (
-    <main className="min-h-screen bg-background">
+    <main id="main-content" className="min-h-screen bg-background">
       <Navbar />
       
       {/* Hero Section */}

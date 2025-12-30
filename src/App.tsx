@@ -6,8 +6,21 @@ import { BrowserRouter } from "react-router-dom";
 import AnimatedRoutes from "./components/AnimatedRoutes";
 import { AccessibilityProvider } from "./contexts/AccessibilityContext";
 import { ThemeProvider } from "./components/ThemeProvider";
+import SkipToContent from "./components/SkipToContent";
+import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 
 const queryClient = new QueryClient();
+
+const AppContent = () => {
+  useKeyboardShortcuts();
+  
+  return (
+    <>
+      <SkipToContent />
+      <AnimatedRoutes />
+    </>
+  );
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -17,7 +30,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <AnimatedRoutes />
+            <AppContent />
           </BrowserRouter>
         </TooltipProvider>
       </AccessibilityProvider>

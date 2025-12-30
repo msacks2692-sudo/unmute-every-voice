@@ -24,6 +24,7 @@ interface AccessibilityContextType extends AccessibilitySettings {
   setTextToSpeech: (enabled: boolean) => void;
   setSpeechRate: (rate: number) => void;
   setSelectedVoice: (voice: string) => void;
+  resetToDefaults: () => void;
 }
 
 const defaultSettings: AccessibilitySettings = {
@@ -102,6 +103,10 @@ export const AccessibilityProvider = ({ children }: { children: ReactNode }) => 
     setSettings((prev) => ({ ...prev, [key]: value }));
   };
 
+  const resetToDefaults = () => {
+    setSettings(defaultSettings);
+  };
+
   return (
     <AccessibilityContext.Provider
       value={{
@@ -116,6 +121,7 @@ export const AccessibilityProvider = ({ children }: { children: ReactNode }) => 
         setTextToSpeech: (v) => updateSetting("textToSpeech", v),
         setSpeechRate: (v) => updateSetting("speechRate", v),
         setSelectedVoice: (v) => updateSetting("selectedVoice", v),
+        resetToDefaults,
       }}
     >
       {children}

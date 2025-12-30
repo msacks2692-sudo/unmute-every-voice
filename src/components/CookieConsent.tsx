@@ -3,6 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Cookie } from "lucide-react";
 
+// Export function to allow reopening the banner
+export const reopenCookieConsent = () => {
+  localStorage.removeItem("cookie-consent");
+  window.dispatchEvent(new Event("reopen-cookie-consent"));
+};
+
 export function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false);
 
@@ -13,6 +19,13 @@ export function CookieConsent() {
       const timer = setTimeout(() => setShowBanner(true), 1500);
       return () => clearTimeout(timer);
     }
+  }, []);
+
+  // Listen for reopen event
+  useEffect(() => {
+    const handleReopen = () => setShowBanner(true);
+    window.addEventListener("reopen-cookie-consent", handleReopen);
+    return () => window.removeEventListener("reopen-cookie-consent", handleReopen);
   }, []);
 
   const handleAccept = () => {
