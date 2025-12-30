@@ -49,27 +49,27 @@ const Footer = () => {
               <Cookie className="w-3 h-3" />
               Manage Cookies
             </button>
-            <a
-              href="#"
+            <Link
+              to="/privacy"
               className="text-sm hover:text-primary transition-colors"
               aria-label="Privacy Policy"
             >
               Privacy
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/terms"
               className="text-sm hover:text-primary transition-colors"
               aria-label="Terms of Service"
             >
               Terms
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/contact"
               className="text-sm hover:text-primary transition-colors"
               aria-label="Contact Us"
             >
               Contact
-            </a>
+            </Link>
           </div>
         </div>
       </div>
