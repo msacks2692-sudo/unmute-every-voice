@@ -7,6 +7,8 @@ import Contact from "@/pages/Contact";
 import MVP from "@/pages/MVP";
 import ThankYou from "@/pages/ThankYou";
 import NotFound from "@/pages/NotFound";
+import Privacy from "@/pages/Privacy";
+import Terms from "@/pages/Terms";
 import PageTransition from "./PageTransition";
 import ScrollToTop from "./ScrollToTop";
 import { CookieConsent } from "./CookieConsent";
@@ -65,6 +67,22 @@ const AnimatedRoutes = () => {
             element={
               <PageTransition>
                 <ThankYou />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/privacy"
+            element={
+              <PageTransition>
+                <Privacy />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/terms"
+            element={
+              <PageTransition>
+                <Terms />
               </PageTransition>
             }
           />
