@@ -5,7 +5,7 @@ import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import { Accessibility, Type, Contrast, Volume, BookOpen, Ruler, Volume2, Snowflake, RotateCcw } from "lucide-react";
+import { Accessibility, Type, Contrast, Volume, BookOpen, Ruler, Volume2, Sparkles, RotateCcw } from "lucide-react";
 import { useAccessibility } from "@/contexts/AccessibilityContext";
 
 interface AccessibilityDialogProps {
@@ -16,8 +16,8 @@ interface AccessibilityDialogProps {
 
 export const AccessibilityDialog = ({ open, onOpenChange, onReadingRulerChange }: AccessibilityDialogProps) => {
   const {
-    snowEnabled,
-    setSnowEnabled,
+    fireworksEnabled,
+    setFireworksEnabled,
     fontSize,
     setFontSize,
     highContrast,
@@ -185,23 +185,23 @@ export const AccessibilityDialog = ({ open, onOpenChange, onReadingRulerChange }
             />
           </div>
 
-          {/* Snow Effect Toggle */}
+          {/* Fireworks Effect Toggle */}
           <div className="flex items-center justify-between space-x-4 p-4 rounded-lg border bg-card shadow-sm">
             <div className="flex items-start gap-3 flex-1">
-              <Snowflake className="w-5 h-5 text-primary mt-0.5" />
+              <Sparkles className="w-5 h-5 text-primary mt-0.5" />
               <div className="space-y-0.5">
-                <Label htmlFor="snow-effect" className="text-base font-semibold cursor-pointer">
-                  Snow Effect
+                <Label htmlFor="fireworks-effect" className="text-base font-semibold cursor-pointer">
+                  Fireworks Effect
                 </Label>
                 <p className="text-sm text-muted-foreground">
-                  Toggle falling snow animation
+                  Toggle celebratory fireworks animation
                 </p>
               </div>
             </div>
             <Switch
-              id="snow-effect"
-              checked={snowEnabled}
-              onCheckedChange={setSnowEnabled}
+              id="fireworks-effect"
+              checked={fireworksEnabled}
+              onCheckedChange={setFireworksEnabled}
             />
           </div>
 
