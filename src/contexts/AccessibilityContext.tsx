@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 interface AccessibilitySettings {
-  snowEnabled: boolean;
+  fireworksEnabled: boolean;
   fontSize: number;
   highContrast: boolean;
   screenReader: boolean;
@@ -14,7 +14,7 @@ interface AccessibilitySettings {
 }
 
 interface AccessibilityContextType extends AccessibilitySettings {
-  setSnowEnabled: (enabled: boolean) => void;
+  setFireworksEnabled: (enabled: boolean) => void;
   setFontSize: (size: number) => void;
   setHighContrast: (enabled: boolean) => void;
   setScreenReader: (enabled: boolean) => void;
@@ -28,7 +28,7 @@ interface AccessibilityContextType extends AccessibilitySettings {
 }
 
 const defaultSettings: AccessibilitySettings = {
-  snowEnabled: true,
+  fireworksEnabled: true,
   fontSize: 100,
   highContrast: false,
   screenReader: false,
@@ -50,7 +50,13 @@ export const AccessibilityProvider = ({ children }: { children: ReactNode }) => 
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         try {
-          return { ...defaultSettings, ...JSON.parse(saved) };
+          const parsed = JSON.parse(saved);
+          // Migrate old snowEnabled to fireworksEnabled
+          if ('snowEnabled' in parsed && !('fireworksEnabled' in parsed)) {
+            parsed.fireworksEnabled = parsed.snowEnabled;
+            delete parsed.snowEnabled;
+          }
+          return { ...defaultSettings, ...parsed };
         } catch {
           return defaultSettings;
         }
@@ -111,7 +117,7 @@ export const AccessibilityProvider = ({ children }: { children: ReactNode }) => 
     <AccessibilityContext.Provider
       value={{
         ...settings,
-        setSnowEnabled: (v) => updateSetting("snowEnabled", v),
+        setFireworksEnabled: (v) => updateSetting("fireworksEnabled", v),
         setFontSize: (v) => updateSetting("fontSize", v),
         setHighContrast: (v) => updateSetting("highContrast", v),
         setScreenReader: (v) => updateSetting("screenReader", v),
@@ -135,10 +141,4 @@ export const useAccessibility = () => {
     throw new Error("useAccessibility must be used within an AccessibilityProvider");
   }
   return context;
-};
-
-// Backwards compatibility - useSnow now uses the accessibility context
-export const useSnow = () => {
-  const { snowEnabled, setSnowEnabled } = useAccessibility();
-  return { snowEnabled, setSnowEnabled };
 };
