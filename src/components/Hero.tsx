@@ -41,7 +41,7 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex items-center justify-center gap-2 mb-8"
           >
-            <h1 className="text-6xl md:text-8xl font-black tracking-tighter">
+          <h1 className="text-6xl md:text-8xl font-black tracking-tighter">
               UNMUTE
               <span className="text-primary inline-flex items-baseline">
                 1
@@ -57,9 +57,9 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground"
           >
-            Flipping the Script on AI,
+            Real-Time ASL Translation,
             <br />
-            <span className="text-primary">everyone has a voice</span>
+            <span className="text-primary">Bridging Every Conversation</span>
           </motion.h2>
 
           {/* Subtitle */}
@@ -69,8 +69,8 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
           >
-            Accessibility as foundation, not afterthought. AI that empowers every voice, not just
-            the majority.
+            AI-powered ASL translation and speech-to-text. Breaking communication barriers 
+            between the Deaf and hearing communities.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -99,10 +99,10 @@ const Hero = () => {
             className="pt-12 text-center shadow-glow opacity-100 rounded-md"
           >
             <p className="text-5xl md:text-7xl font-black text-primary mb-2 animate-fade-in">
-              1.3B
+              70M+
             </p>
             <p className="text-lg md:text-xl text-muted-foreground font-medium">
-              people leading the charge
+              Deaf individuals worldwide deserve seamless communication
             </p>
           </motion.div>
         </motion.div>
