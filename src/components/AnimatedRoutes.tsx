@@ -3,6 +3,7 @@ import { AnimatePresence } from "framer-motion";
 import Index from "@/pages/Index";
 import About from "@/pages/About";
 import Features from "@/pages/Features";
+import Accessibility from "@/pages/Accessibility";
 import Contact from "@/pages/Contact";
 import MVP from "@/pages/MVP";
 import ThankYou from "@/pages/ThankYou";
@@ -43,6 +44,14 @@ const AnimatedRoutes = () => {
             element={
               <PageTransition>
                 <Features />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/accessibility"
+            element={
+              <PageTransition>
+                <Accessibility />
               </PageTransition>
             }
           />
