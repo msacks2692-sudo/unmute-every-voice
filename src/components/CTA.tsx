@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Mail } from "lucide-react";
+import { ArrowRight, Hand, Brain } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -48,9 +48,9 @@ const CTA = () => {
             transition={{ duration: 0.6 }}
             className="text-4xl md:text-6xl font-bold leading-tight"
           >
-            Ready to make AI
+            Communication designed for
             <br />
-            <span className="text-primary">accessible for everyone?</span>
+            <span className="text-primary">every mind, every voice</span>
           </motion.h2>
 
           <motion.p 
@@ -60,8 +60,8 @@ const CTA = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
           >
-            Be part of the community building technology that truly serves all 8 billion people on
-            this planet.
+            Whether you're Deaf, neurodivergent, or simply communicate differently—Unmute1 bridges 
+            the gap with AI-powered ASL translation and adaptive communication tools.
           </motion.p>
 
           <motion.div 
@@ -73,14 +73,17 @@ const CTA = () => {
           >
             <Link to="/mvp">
               <Button variant="hero" size="lg" className="group">
-                <Mail className="w-5 h-5" />
-                Get Early Access
+                <Hand className="w-5 h-5" />
+                Try ASL Translation
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            <Button variant="outline" size="lg" className="border-primary/20 hover:border-primary">
-              Learn About Our Work
-            </Button>
+            <Link to="/features">
+              <Button variant="outline" size="lg" className="border-primary/20 hover:border-primary">
+                <Brain className="w-5 h-5 mr-2" />
+                Explore Accessibility Tools
+              </Button>
+            </Link>
           </motion.div>
 
           <motion.div 
@@ -88,15 +91,19 @@ const CTA = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="pt-8 flex items-center justify-center gap-8 text-sm text-muted-foreground"
+            className="pt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground"
           >
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-primary rounded-full" />
-              <span>No credit card required</span>
+              <span>Deaf community focused</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-primary rounded-full" />
-              <span>Community-driven</span>
+              <span>Neurodivergent friendly</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-primary rounded-full" />
+              <span>Built with the community</span>
             </div>
           </motion.div>
         </div>
