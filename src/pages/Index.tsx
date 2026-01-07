@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import Hero from "@/components/Hero";
+import FeatureShowcase from "@/components/FeatureShowcase";
 import Story from "@/components/Story";
 import Mission from "@/components/Mission";
 import Founder from "@/components/Founder";
@@ -46,6 +47,7 @@ const Index = () => {
         </div>
         
         <Hero />
+        <FeatureShowcase />
         <Story />
         <Mission />
         <Founder />
