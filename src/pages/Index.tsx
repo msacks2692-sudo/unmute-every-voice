@@ -9,6 +9,7 @@ import Journey from "@/components/Journey";
 import Barriers from "@/components/Barriers";
 import Impact from "@/components/Impact";
 import Testimonials from "@/components/Testimonials";
+import VideoDemo from "@/components/VideoDemo";
 import InteractiveDemo from "@/components/InteractiveDemo";
 import PayPalSection from "@/components/PayPalSection";
 import CTA from "@/components/CTA";
@@ -56,6 +57,7 @@ const Index = () => {
         <Barriers />
         <Impact />
         <Testimonials />
+        <VideoDemo />
         <InteractiveDemo />
         <PayPalSection />
         <CTA />
