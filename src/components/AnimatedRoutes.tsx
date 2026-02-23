@@ -10,6 +10,7 @@ import ThankYou from "@/pages/ThankYou";
 import NotFound from "@/pages/NotFound";
 import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
+import Pricing from "@/pages/Pricing";
 import PageTransition from "./PageTransition";
 import ScrollToTop from "./ScrollToTop";
 import { CookieConsent } from "./CookieConsent";
@@ -76,6 +77,14 @@ const AnimatedRoutes = () => {
             element={
               <PageTransition>
                 <ThankYou />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/pricing"
+            element={
+              <PageTransition>
+                <Pricing />
               </PageTransition>
             }
           />
