@@ -11,6 +11,7 @@ import Impact from "@/components/Impact";
 import Testimonials from "@/components/Testimonials";
 import VideoDemo from "@/components/VideoDemo";
 import InteractiveDemo from "@/components/InteractiveDemo";
+import ASLDemo from "@/components/ASLDemo";
 import FAQ from "@/components/FAQ";
 import PayPalSection from "@/components/PayPalSection";
 import CTA from "@/components/CTA";
@@ -61,6 +62,7 @@ const Index = () => {
         <VideoDemo />
         <FAQ />
         <InteractiveDemo />
+        <ASLDemo />
         <PayPalSection />
         <CTA />
         <Footer />
