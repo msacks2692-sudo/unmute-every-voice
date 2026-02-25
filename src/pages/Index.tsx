@@ -20,7 +20,7 @@ import { AccessibilityButton } from "@/components/AccessibilityButton";
 import DustParticles from "@/components/DustParticles";
 import LoadingScreen from "@/components/LoadingScreen";
 import Navbar from "@/components/Navbar";
-import FireworksEffect from "@/components/FireworksEffect";
+
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -42,8 +42,6 @@ const Index = () => {
       <main id="main-content" className="min-h-screen relative">
         <Navbar />
         
-        {/* Fireworks effect */}
-        <FireworksEffect />
         
         {/* Global dust/bubble particles effect */}
         <div className="fixed inset-0 pointer-events-none z-30">

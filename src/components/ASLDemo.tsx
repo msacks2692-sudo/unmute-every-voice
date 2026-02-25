@@ -4,10 +4,17 @@ import { Hand, ChevronLeft, ChevronRight, RotateCcw, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
+import aslHello from "@/assets/asl-hello.png";
+import aslThankYou from "@/assets/asl-thankyou.png";
+import aslPlease from "@/assets/asl-please.png";
+import aslHelp from "@/assets/asl-help.png";
+import aslILoveYou from "@/assets/asl-iloveyou.png";
+
 const signs = [
   {
     word: "Hello",
     emoji: "👋",
+    image: aslHello,
     steps: [
       "Open your dominant hand with fingers together",
       "Place your hand near your forehead (like a salute)",
@@ -19,6 +26,7 @@ const signs = [
   {
     word: "Thank You",
     emoji: "🙏",
+    image: aslThankYou,
     steps: [
       "Touch your chin or lips with your fingertips",
       "Your hand should be flat with fingers together",
@@ -30,6 +38,7 @@ const signs = [
   {
     word: "Please",
     emoji: "🤲",
+    image: aslPlease,
     steps: [
       "Place your flat, open hand on your chest",
       "Fingers should be together and pointing up slightly",
@@ -41,6 +50,7 @@ const signs = [
   {
     word: "Help",
     emoji: "🆘",
+    image: aslHelp,
     steps: [
       "Make a fist with your dominant hand (thumbs-up shape)",
       "Place the fist on your open, flat non-dominant palm",
@@ -52,6 +62,7 @@ const signs = [
   {
     word: "I Love You",
     emoji: "🤟",
+    image: aslILoveYou,
     steps: [
       "Extend your thumb, index finger, and pinky finger",
       "Keep your middle and ring fingers folded down",
@@ -128,7 +139,7 @@ const ASLDemo = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-3xl mx-auto"
+          className="max-w-4xl mx-auto"
         >
           {/* Sign selector pills */}
           <div className="flex flex-wrap justify-center gap-2 mb-8">
@@ -174,36 +185,60 @@ const ASLDemo = () => {
               </Button>
             </div>
 
-            {/* Steps */}
-            <div className="space-y-3 mb-8">
-              {sign.steps.map((step, i) => (
+            {/* Content: illustration + steps */}
+            <div className="grid md:grid-cols-[220px_1fr] gap-6 mb-8">
+              {/* Illustration */}
+              <AnimatePresence mode="wait">
                 <motion.div
-                  key={`${sign.word}-${i}`}
+                  key={sign.word}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className={`flex items-start gap-4 p-4 rounded-xl transition-all duration-300 ${
-                    i === currentStep
-                      ? "bg-primary/10 ring-2 ring-primary/30"
-                      : i < currentStep
-                      ? "bg-muted/50 opacity-60"
-                      : "bg-muted/30 opacity-40"
-                  }`}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex items-center justify-center"
                 >
-                  <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-sm font-bold transition-colors duration-300 ${
+                  <div className="w-48 h-48 md:w-52 md:h-52 rounded-2xl overflow-hidden bg-muted/30 border border-border/50 shadow-lg">
+                    <img
+                      src={sign.image}
+                      alt={`ASL sign for ${sign.word}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Steps */}
+              <div className="space-y-3">
+                {sign.steps.map((step, i) => (
+                  <motion.div
+                    key={`${sign.word}-${i}`}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    className={`flex items-start gap-4 p-4 rounded-xl transition-all duration-300 ${
                       i === currentStep
-                        ? "bg-primary text-primary-foreground"
+                        ? "bg-primary/10 ring-2 ring-primary/30"
                         : i < currentStep
-                        ? "bg-primary/30 text-primary"
-                        : "bg-muted text-muted-foreground"
+                        ? "bg-muted/50 opacity-60"
+                        : "bg-muted/30 opacity-40"
                     }`}
                   >
-                    {i + 1}
-                  </div>
-                  <p className="text-sm pt-1">{step}</p>
-                </motion.div>
-              ))}
+                    <div
+                      className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-sm font-bold transition-colors duration-300 ${
+                        i === currentStep
+                          ? "bg-primary text-primary-foreground"
+                          : i < currentStep
+                          ? "bg-primary/30 text-primary"
+                          : "bg-muted text-muted-foreground"
+                      }`}
+                    >
+                      {i + 1}
+                    </div>
+                    <p className="text-sm pt-1">{step}</p>
+                  </motion.div>
+                ))}
+              </div>
             </div>
 
             {/* Tip */}
